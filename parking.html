@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  class Vehicle {
+    constructor(type, regNo, color) {
+      this.type = type;
+      this.regNo = regNo;
+      this.color = color;
+    }
+  }
+
+  class car extends Vehicle {
+    constructor(regNo, color) {
+      super("car", regNo, color);
+    }
+  }
+
+  class bike extends Vehicle {
+    constructor(regNo, color) {
+      super("bike", regNo, color);
+    }
+  }
+
+  class truck extends Vehicle {
+    constructor() {
+      super("truck", regNo, color);
+    }
+  }
+  ///////////////////////////////////////////////////
+
+  class slot {
+    constructor(number, type) {
+      this.number = number;
+      this.type = type;
+      this.isBooked = false;
+    }
+  }
+
+  class floor {
+    constructor(floorNO, numberOfSpot, numberOfSlot) {
+      this.floorNO = floorNO;
+      this.spots = [];
+
+      for (let i = 0; i < numberOfSpot; i++) {
+        let slots = [];
+        if (i == 0) {
+          for (let j = 0; j < numberOfSlot; j++) {
+            slots.push(new slot(j, "bike"));
+          }
+        } else if (i == 1) {
+          for (let j = 0; j < numberOfSlot; j++) {
+            slots.push(new slot(j, "car"));
+          }
+        } else {
+          for (let j = 0; j < numberOfSlot; j++) {
+            slots.push(new slot(j, "truck"));
+          }
+        }
+
+        this.spots.push(slots);
+      }
+    }
+  }
+  const f1 = new floor(1, 3, 4);
+  console.log("floor", f1);
+
+  class parkinglot {
+    constructor(numberOfFloors) {
+      this.numberOfFloors = numberOfFloors;
+      this.floors = [];
+
+      for (let i = 0; i < numberOfFloors; i++) {
+        let floor1 = new floor(i, 3, 4);
+        this.floors.push(floor1);
+      }
+    }
+
+    findSlot() {
+      for (let i = 0; i < this.numberOfFloors; i++) {
+        
+        for (let j = 0; j < this.floors[i].spots.length; j++) {
+          console.log("spots",this.floors[i].spots)
+          let slotss = this.floors[i].spots[j];
+          
+
+          for (let k = 0; k < slotss.length; k++) {
+            
+            if (!slotss[k].isBooked) {
+              return true;
+            }
+          }
+        }
+      }
+      return false
+    }
+  }
+
+  const p1 = new parkinglot(2);
+  console.log(p1.findSlot());
+</script>
